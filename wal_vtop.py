@@ -1,6 +1,9 @@
 import os.path
 import json
 
+# wal_vtop details
+VERSION = 0.1.0
+
 # Get path for colors.json from ~/.cache/wal/colors.json
 HOME_DIR = os.getenv("HOME", os.getenv("USERPROFILE"))
 WAL_PATH = os.path.join(HOME_DIR, ".cache/wal")
