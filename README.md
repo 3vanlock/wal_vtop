@@ -4,12 +4,12 @@ Automate [vtop](https://github.com/MrRio/vtop) theme creation from generated [py
 
 ## About
 
-`wal_vtop` is a small Python utility meant to work with `wal` by reading colors generated into a JSON file and translating them into a JSON `vtop` theme file.
+`wal_vtop` is a small Python utility meant to work with `wal` by reading colors generated from a JSON file and translating them into a JSON-based `vtop` theme file.
 
 ## Install
 
 ### Requirements
-    
+
 ## Use
 
 **Be sure you've run `wal` at least once to generate colors.json file.**
@@ -17,5 +17,3 @@ Automate [vtop](https://github.com/MrRio/vtop) theme creation from generated [py
 Simply call the wal_vtop Python file
 
 `python wal_vtop.py`
-
-

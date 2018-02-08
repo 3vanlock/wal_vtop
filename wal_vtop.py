@@ -60,6 +60,8 @@ def themeVtop():
 	try:
 		with open(VTOP, 'w') as f:
 			json.dump(walj, f)
+		if os.path.isfile(VTOP):
+			print("vtop theme written successfully. start vtop with `vtop --theme wal` to view")
 	except:
 		print("Error writing vtop theme file")
 		sys.exit(1)
