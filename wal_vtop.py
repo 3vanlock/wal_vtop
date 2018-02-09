@@ -6,65 +6,93 @@ import argparse
 # wal_vtop details
 VERSION = "0.1.1"
 
-# Get path for colors.json from ~/.cache/wal/colors.json
-HOME_DIR = os.getenv("HOME", os.getenv("USERPROFILE"))
-WAL_PATH = os.path.join(HOME_DIR, ".cache/wal")
-WAL_FILE = "colors.json"
 # Get path for vtop themes
-VTOP_PATH = "/usr/lib/node_modules/vtop/themes"
-VTOP_FILE = "wal.json"
-WAL = os.path.join(WAL_PATH, WAL_FILE)
-VTOP = os.path.join(VTOP_PATH, VTOP_FILE)
+vtop_file = "wal.json"
 
-def themeVtop():
+def setConfig():
+	# Get host OS
+	hostOS = getOS()
+	# Get user home directory
+	home_dir = os.getenv("HOME", os.getenv("USERPROFILE"))
+	# Set wal colors file
+	wal_colors = os.path.join(home_dir, ".cache", "wal", "colors.json")
+	# Confirm wal export exists
+	if not os.path.isfile(wal_colors):
+		# Print error and exit if not found
+		print("Wal colors could not be found. Try running `wal` again")
+		sys.exit(1)
+	# Set vtop directory by platform
+	if hostOS == "linux":
+		vtop_path = "/usr/lib/node_modules/vtop/themes"
+		vtop_theme = os.path.join(vtop_path, vtop_file)
+	elif hostOS == "win32":
+		print("Windows platform not supported")
+		sys.exit(1)
+	elif hostOS == "darwin":
+		print("OS X not supported")
+		sys.exit(1)
+	else:
+		# Print error and exit if OS unsupported
+		print("Unsupported operating system")
+		sys.exit(1)
+	# Return file paths as strings for wal color file and vtop theme file
+	return wal_colors, vtop_theme
+
+def themeVtop(wal_colors_path, vtop_theme_path):
 	# Open colors.json and load
-	wal_colors = json.load(open(WAL))
+	import_colors = json.load(open(wal_colors_path))
 
 	# Transfer wal colors to vtop theme json scheme
 	walj = {
 		"name": "Wal",
 		"author": "epl",
 		"title": {
-			"fg": wal_colors['colors']['color1']
+			"fg": import_colors['colors']['color1']
 		},
 		"chart": {
-			"fg": wal_colors['colors']['color1'],
+			"fg": import_colors['colors']['color1'],
 			"border": {
 				"type": "line",
-				"fg": wal_colors['colors']['color1']
+				"fg": import_colors['colors']['color1']
 			}
 		},
 		"table": {
-			"fg": wal_colors['colors']['color15'],
+			"fg": import_colors['colors']['color15'],
 			"items": {
 				"selected": {
-					"bg": wal_colors['colors']['color1'],
-					"fg": wal_colors['colors']['color15']
+					"bg": import_colors['colors']['color1'],
+					"fg": import_colors['colors']['color15']
 				},
 				"item": {
-					"bg": wal_colors['colors']['color15'],
-					"fg": wal_colors['colors']['color1']
+					"bg": import_colors['colors']['color15'],
+					"fg": import_colors['colors']['color1']
 				}
 			},
 			"border": {
 				"type": "line",
-				"fg": wal_colors['colors']['color1']
+				"fg": import_colors['colors']['color1']
 			}
 		},
 		"footer": {
-			"fg": wal_colors['colors']['color1']
+			"fg": import_colors['colors']['color1']
 		}
 	}
 
 	# Write theme json to vtop themes directory
 	try:
-		with open(VTOP, 'w') as f:
+		with open(vtop_theme_path, 'w') as f:
 			json.dump(walj, f)
-		if os.path.isfile(VTOP):
+		if os.path.isfile(vtop_theme_path):
 			print("vtop theme written successfully. start vtop with `vtop --theme wal` to view")
 	except:
 		print("Error writing vtop theme file")
 		sys.exit(1)
+
+def getOS():
+	# system call for user platform
+	hostOS = sys.platform
+	# return os as string: linux, win32, darwin
+	return hostOS
 
 def getArgs():
     # get the arguments with argparse
@@ -77,11 +105,16 @@ def getArgs():
     return arg.parse_args()
 
 def main():
+	# Parse arguments
 	arguments = getArgs()
+	# Print app version
 	if arguments.version:
 		print("wal vtop", VERSION)
 		sys.exit()
-	themeVtop()
+	# Set file paths
+	wcp, vtp = setConfig()
+	# Translate and write theme
+	themeVtop(wcp, vtp)
 
 if __name__ == '__main__':
 	main()
