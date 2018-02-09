@@ -8,7 +8,7 @@ Automate [vtop](https://github.com/MrRio/vtop) theme creation from generated [py
 
 ## Install
 
-```
+```bash
 git clone `https://github.com/elock37/wal_vtop.git`
 cd wal_vtop
 pip install .
@@ -16,7 +16,11 @@ pip install .
 
 ### Requirements
 
-Tested with Python 3.6.4. Uses standard sys calls so should function across all Python 3.
+* [python3](https://www.python.org/)
+
+    Tested with Python 3.6.4. Uses standard sys calls so should function across all Python 3.
+
+* [pywal](https://github.com/dylanaraps/pywal)
 
 ## Use
 
