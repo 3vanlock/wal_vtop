@@ -10,7 +10,7 @@ Automate [vtop](https://github.com/MrRio/vtop) theme creation from generated [py
 
 ```
 git clone `https://github.com/elock37/wal_vtop.git`
-cd wal-vtop
+cd wal_vtop
 pip install .
 ```
 
