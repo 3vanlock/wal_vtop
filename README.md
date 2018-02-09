@@ -8,12 +8,16 @@ Automate [vtop](https://github.com/MrRio/vtop) theme creation from generated [py
 
 ## Install
 
+'''
+git clone `https://github.com/elock37/wal_vtop.git`
+cd wal-vtop
+pip install .
+"""
+
 ### Requirements
 
 ## Use
 
 **Be sure you've run `wal` at least once to generate colors.json file.**
 
-Simply call the wal_vtop Python file
-
-`python wal_vtop.py`
+Simply invoke `wal-vtop`
