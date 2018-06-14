@@ -29,8 +29,8 @@ def setConfig():
 		print("Windows platform not supported")
 		sys.exit(1)
 	elif hostOS == "darwin":
-		print("OS X not supported")
-		sys.exit(1)
+                vtop_path = "/usr/local/lib/node_modules/vtop/themes"
+                vtop_theme = os.path.join(vtop_path, vtop_file)
 	else:
 		# Print error and exit if OS unsupported
 		print("Unsupported operating system")
