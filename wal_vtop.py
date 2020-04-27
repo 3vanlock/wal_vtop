@@ -64,7 +64,6 @@ def themeVtop(wal_colors_path, vtop_theme_path):
 					"fg": import_colors['colors']['color15']
 				},
 				"item": {
-					"bg": import_colors['colors']['color15'],
 					"fg": import_colors['colors']['color1']
 				}
 			},
